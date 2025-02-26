@@ -52,6 +52,6 @@ Feature: Login Functionality
     Then the user should be successfully logged in
     And the user should be redirected to the home page
     Examples:
-      | username                    | password         |
-      | next4biz.tester@gmail.com   | VgTRPv36UZ1@6Zo$ |
-      | umit.sinanoglu@next4biz.com | VgTRPv36%UZ@6Zo$ |
+      | username                   | password         |
+      | tester@gmail.com           |  |
+      | umit.sinanoglu@example.com |  |

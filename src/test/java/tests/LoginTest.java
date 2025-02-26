@@ -63,7 +63,7 @@ public class LoginTest extends BaseTest {
         loginPage.login(TESLA_USERNAME, TESLA_PASSWORD);
 
         // Wait for redirection to the main page
-        waitUtils.waitForUrlContains("https://tesla.selphiu.co/crm/latest-activity");
+        waitUtils.waitForUrlContains("https://tesla.example.co/crm/latest-activity");
 
         // Ensure a key element of the main page is loaded
         waitUtils.waitForPresenceOfElementLocated(By.xpath("//div[@class='app_mobile-header_nav-logo']"));
@@ -73,11 +73,11 @@ public class LoginTest extends BaseTest {
 
         AssertionUtils.assertAll(
                 () -> AssertionUtils.assertTextEquals(TESLA_USERNAME, myAccountPage.getUserName(), "Kullanıcı adı yanlış!"),
-                () -> AssertionUtils.assertTextEquals("https://tesla.selphiu.co/myaccount", driver.getCurrentUrl(), "Yanlış sayfaya yönlendirildi!")
+                () -> AssertionUtils.assertTextEquals("https://tesla.example.co/myaccount", driver.getCurrentUrl(), "Yanlış sayfaya yönlendirildi!")
         );
 
         Assertions.assertEquals(TESLA_USERNAME, myAccountPage.getUserName(), "Kullanıcı adı yanlış!");
-        Assertions.assertEquals("https://tesla.selphiu.co/myaccount", driver.getCurrentUrl(), "Yanlış sayfaya yönlendirildi!");
+        Assertions.assertEquals("https://tesla.example.co/myaccount", driver.getCurrentUrl(), "Yanlış sayfaya yönlendirildi!");
 
         // Print success message to console
         System.out.println("Test case 'testSuccessfulLogin' passed successfully.");

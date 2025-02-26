@@ -4,14 +4,18 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.safari.SafariOptions;
 
-import java.util.logging.Level;
+import java.util.Objects;
 
 public class BrowserOptions {
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
+        if (Objects.equals(ConfigManager.getProperty("headless"), "true")) {
+            chromeOptions.addArguments("--headless");
+        }
         return chromeOptions;
     }
 
@@ -23,6 +27,10 @@ public class BrowserOptions {
 
     public static EdgeOptions getEdgeOptions() {
         return new EdgeOptions();
+    }
+
+    public static SafariOptions getSafariOptions() {
+        return new SafariOptions();
     }
 
 }

@@ -110,11 +110,11 @@ public class LoginSteps {
 
         AssertionUtils.assertAll(
                 () -> AssertionUtils.assertTextEquals(TESLA_USERNAME, myAccountPage.getUserName(), "Kullanıcı adı yanlış!"),
-                () -> AssertionUtils.assertTextEquals("https://tesla.selphiu.co/myaccount", DriverFactory.getDriver().getCurrentUrl(), "Yanlış sayfaya yönlendirildi!")
+                () -> AssertionUtils.assertTextEquals("https://tesla.example.co/myaccount", DriverFactory.getDriver().getCurrentUrl(), "Yanlış sayfaya yönlendirildi!")
         );
 
         Assertions.assertEquals(TESLA_USERNAME, myAccountPage.getUserName(), "Kullanıcı adı yanlış!");
-        Assertions.assertEquals("https://tesla.selphiu.co/myaccount", DriverFactory.getDriver().getCurrentUrl(), "Yanlış sayfaya yönlendirildi!");
+        Assertions.assertEquals("https://tesla.example.co/myaccount", DriverFactory.getDriver().getCurrentUrl(), "Yanlış sayfaya yönlendirildi!");
 
         // Print success message to console
         System.out.println("Test case 'testSuccessfulLogin' passed successfully.");
@@ -124,4 +124,21 @@ public class LoginSteps {
     public void theUserShouldBeAbleToLogoutSuccessfully() {
         loginPage.logout();
     }
+
+
+    @Given("the user is logged in")
+    public void theUserIsLoggedIn() {
+        loginPage = new LoginPage();
+        loginPage.open();
+        loginPage.login(TESLA_USERNAME, TESLA_PASSWORD);
+
+    }
+
+    @And("the user is on the CRM home page")
+    public void theUserIsOnTheCRMHomePage() {
+        loginPage.verifyLoggedIn();
+        loginPage.verifyRedirectedToHomePage();
+    }
+
+
 }

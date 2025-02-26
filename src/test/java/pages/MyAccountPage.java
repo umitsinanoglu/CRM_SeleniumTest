@@ -20,6 +20,6 @@ public class MyAccountPage extends BasePage{
 
 
     public void open() {
-        driver.get("https://tesla.selphiu.co/myaccount"); // Direkt URL'ye git
+        driver.get("https://tesla.example.co/myaccount"); // Direkt URL'ye git
     }
 }

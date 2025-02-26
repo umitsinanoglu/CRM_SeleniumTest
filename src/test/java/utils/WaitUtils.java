@@ -35,4 +35,7 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
+    public void waitForUrlToBe(String url) {
+        wait.until(ExpectedConditions.urlContains(url));
+    }
 }

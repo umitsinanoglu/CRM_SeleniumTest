@@ -6,6 +6,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.AssertionUtils;
+import utils.ConfigManager;
 
 
 public class LoginPage extends BasePage {
@@ -28,9 +29,11 @@ public class LoginPage extends BasePage {
     private WebElement emptyUserNameError;
     @FindBy(xpath = "//div[contains(@class, 'mantine-PasswordInput-root')]/parent::div//span")
     private WebElement emptyPasswordError;
+    private final String baseUrl;
 
     public LoginPage() {
         super();
+        this.baseUrl = ConfigManager.getProperty("base_url"); // Ortama göre URL'yi al
     }
 
     public void login(String username, String password) {
@@ -41,7 +44,11 @@ public class LoginPage extends BasePage {
     }
 
     public void open() {
-        driver.get("https://tesla.selphiu.co/login"); // Direkt URL'ye git
+        driver.get(baseUrl + "/login");  // Ortam bazlı URL kullanımı
+    }
+
+    public void logout() {
+        driver.get(baseUrl + "/logout"); // Ortam bazlı URL kullanımı
     }
 
     public String getResponseMessage() {
@@ -110,19 +117,17 @@ public class LoginPage extends BasePage {
 
     public void verifyRedirectedToHomePage() {
         // Wait for redirection to the main page
-        waitUtils.waitForUrlContains("https://tesla.selphiu.co/crm/latest-activity");
+        waitUtils.waitForUrlContains("https://tesla.example.co/crm/latest-activity");
         // Ensure a key element of the main page is loaded
         waitUtils.waitForPresenceOfElementLocated(By.xpath("//div[@class='app_mobile-header_nav-logo']"));
         AssertionUtils.assertAll(
-                () -> AssertionUtils.assertTextEquals("https://tesla.selphiu.co/crm/latest-activity", driver.getCurrentUrl(), "User is not redirected to the home page")
+                () -> AssertionUtils.assertTextEquals("https://tesla.example.co/crm/latest-activity", driver.getCurrentUrl(), "User is not redirected to the home page")
         );
         AssertionUtils.assertTrue(driver.getCurrentUrl().contains("latest-activity"), "User is redirected to the home page");
         AssertionUtils.assertTrue(isPresentWebElement(By.xpath("//div[@class='app_mobile-header_nav-logo']")), "User is redirected to the home page");
 
     }
 
-    public void logout() {
-        driver.get("https://tesla.selphiu.co/logout");
-    }
+
 }
 

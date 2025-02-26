@@ -3,6 +3,7 @@ package utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
@@ -20,20 +21,25 @@ public class DriverFactory {
     public static void quitDriver() {
         if (getDriver() != null) {
             getDriver().quit();
-            //driver.remove();
+            driver.remove();
         }
     }
 
-    public static WebDriver createDriver(String browser) {
+    public static void createDriver(String browser) {
+        WebDriver webDriver;
+
         if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = BrowserOptions.getChromeOptions();
             WebDriverManager.chromedriver().setup();
-            setDriver(new ChromeDriver());
+            webDriver = new ChromeDriver(options);
         } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
-            setDriver(new FirefoxDriver());
+            webDriver = new FirefoxDriver();
         } else {
             throw new IllegalArgumentException("Geçersiz tarayıcı adı: " + browser);
         }
-        return getDriver();
+
+        webDriver.manage().window().maximize(); // Tüm tarayıcılar için tam ekran
+        setDriver(webDriver);
     }
 }
